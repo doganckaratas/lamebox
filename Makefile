@@ -8,7 +8,7 @@ PIXIEWPS_REPO	:= -b master "git://git.kali.org/packages/pixiewps.git"
 
 # All Tools 
 
-.PHONY: all checkout install clean distclean
+.PHONY: all checkout build install clean distclean
 
 all: checkout build install
 
