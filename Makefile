@@ -2,6 +2,7 @@
 GITCLONE	:= git clone
 MAKE		:= make
 INSTALLDIR	:= _install
+BURP_REPO	:= -b master "git://git.kali.org/packages/burpsuite.git"
 MDK3_REPO	:= -b master "git://github.com/wi-fi-analyzer/mdk3-master.git"
 PIXIEWPS_REPO	:= -b master "git://git.kali.org/packages/pixiewps.git"
 REAVER_REPO 	:= -b kali/master "git://git.kali.org/packages/reaver.git"
@@ -12,26 +13,44 @@ REAVER_REPO 	:= -b kali/master "git://git.kali.org/packages/reaver.git"
 
 all: checkout build install
 
-checkout: mdk3_checkout \
+checkout: burp_checkout \
+	mdk3_checkout \
 	pixiewps_checkout \
 	reaver_checkout
 
 build: checkout \
+	burp_build \
 	mdk3_build \
 	pixiewps_build \
 	reaver_build
 
 install: build \
+	burp_install \
 	mdk3_install \
 	pixiewps_install \
 	reaver_install
 
-clean: 	mdk3_clean \
+clean: 	burp_clean \
+	mdk3_clean \
 	pixiewps_clean \
 	reaver_clean
 
 distclean:
-	rm -rf _install mdk3 pixiewps reaver
+	rm -rf _install burpsuite mdk3 pixiewps reaver
+
+# Burp Suite
+
+burp_checkout:
+	${GITCLONE} $(BURP_REPO)
+
+burp_build:
+	@true
+
+burp_install:
+	cp burpsuite/burpsuite.jar _install/bin
+
+burp_clean:
+	rm -rf burpsuite
 
 # MDK3
 

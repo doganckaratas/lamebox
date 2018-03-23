@@ -8,6 +8,7 @@ just execute "make" and sit back.
 
 ## Tool List
 
+- Burp Suite
 - MDK3
 - PixieWPS
 - Reaver
