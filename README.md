@@ -8,6 +8,7 @@ just execute "make" and sit back.
 
 ## Tool List
 
+- MDK3
 - PixieWPS
 - Reaver
 
