@@ -2,9 +2,9 @@
 GITCLONE	:= git clone
 MAKE		:= make
 INSTALLDIR	:= _install
-REAVER_REPO 	:= -b kali/master "git://git.kali.org/packages/reaver.git"
+MDK3_REPO	:= -b master "git://github.com/wi-fi-analyzer/mdk3-master.git"
 PIXIEWPS_REPO	:= -b master "git://git.kali.org/packages/pixiewps.git"
-
+REAVER_REPO 	:= -b kali/master "git://git.kali.org/packages/reaver.git"
 
 # All Tools 
 
@@ -12,22 +12,40 @@ PIXIEWPS_REPO	:= -b master "git://git.kali.org/packages/pixiewps.git"
 
 all: checkout build install
 
-checkout: pixiewps_checkout \
+checkout: mdk3_checkout \
+	pixiewps_checkout \
 	reaver_checkout
 
 build: checkout \
+	mdk3_build \
 	pixiewps_build \
 	reaver_build
 
 install: build \
+	mdk3_install \
 	pixiewps_install \
 	reaver_install
 
-clean: 	pixiewps_clean \
+clean: 	mdk3_clean \
+	pixiewps_clean \
 	reaver_clean
 
 distclean:
-	rm -rf _install pixiewps reaver
+	rm -rf _install mdk3 pixiewps reaver
+
+# MDK3
+
+mdk3_checkout:
+	${GITCLONE} $(MDK3_REPO) mdk3
+
+mdk3_build:
+	${MAKE} -C mdk3
+
+mdk3_install:
+	${MAKE} -C mdk3 install PREFIX=$(shell pwd -P)/$(INSTALLDIR)
+
+mdk3_clean:
+	${MAKE} -C mdk3 clean
 
 # PixieWPS
 
