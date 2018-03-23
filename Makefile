@@ -8,13 +8,15 @@ REAVER_REPO 	:= -b kali/master "git://git.kali.org/packages/reaver.git"
 
 .PHONY: all checkout install clean distclean
 
+all: checkout build install
+
 checkout: \
 	reaver_checkout	
 
-all: checkout \
+build: checkout \
 	reaver_build
 
-install: all \
+install: build \
 	reaver_install
 
 clean: \
