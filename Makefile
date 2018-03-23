@@ -2,6 +2,7 @@
 GITCLONE	:= git clone
 MAKE		:= make
 INSTALLDIR	:= _install
+ARPSCAN_REPO	:= -b master "git://git.kali.org/packages/arp-scan.git"
 BURP_REPO	:= -b master "git://git.kali.org/packages/burpsuite.git"
 MDK3_REPO	:= -b master "git://github.com/wi-fi-analyzer/mdk3-master.git"
 PIXIEWPS_REPO	:= -b master "git://git.kali.org/packages/pixiewps.git"
@@ -13,41 +14,62 @@ REAVER_REPO 	:= -b kali/master "git://git.kali.org/packages/reaver.git"
 
 all: checkout build install
 
-checkout: burp_checkout \
+checkout: arpscan_checkout \
+	burp_checkout \
 	mdk3_checkout \
 	pixiewps_checkout \
 	reaver_checkout
 
 build: checkout \
+	arpscan_build \
 	burp_build \
 	mdk3_build \
 	pixiewps_build \
 	reaver_build
 
 install: build \
+	arpscan_install \
 	burp_install \
 	mdk3_install \
 	pixiewps_install \
 	reaver_install
 
-clean: 	burp_clean \
+clean: 	arpscan_clean \
+	burp_clean \
 	mdk3_clean \
 	pixiewps_clean \
 	reaver_clean
 
 distclean:
-	rm -rf _install burpsuite mdk3 pixiewps reaver
+	rm -rf _install arp-scan burpsuite mdk3 pixiewps reaver
+
+# arp-scan
+
+arpscan_checkout:
+	${GITCLONE} $(ARPSCAN_REPO)
+
+arpscan_build:
+	cd ./arp-scan && ./configure --prefix=$(shell pwd -P)/$(INSTALLDIR)
+	${MAKE} -C arp-scan
+
+arpscan_install:
+	${MAKE} -C arp-scan install
+
+arpscan_clean:
+	${MAKE} -C arp-scan clean
 
 # Burp Suite
 
 burp_checkout:
-	${GITCLONE} $(BURP_REPO)
+	@true
+#	${GITCLONE} $(BURP_REPO)
 
 burp_build:
 	@true
 
 burp_install:
-	cp burpsuite/burpsuite.jar _install/bin
+	@true
+#	cp burpsuite/burpsuite.jar _install/bin
 
 burp_clean:
 	rm -rf burpsuite

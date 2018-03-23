@@ -8,6 +8,7 @@ just execute "make" and sit back.
 
 ## Tool List
 
+- arp-scan
 - Burp Suite
 - MDK3
 - PixieWPS
