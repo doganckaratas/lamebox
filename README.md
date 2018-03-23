@@ -1,5 +1,5 @@
 # lamebox
-Automated system for installing Kali-Linux tools easily
+Automated system for installing Kali-Linux tools (distro independent) easily 
 
 just execute "make" and sit back.
 
